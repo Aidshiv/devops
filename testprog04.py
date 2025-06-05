@@ -1,4 +1,4 @@
-🧪 EXPERIMENT 6: CONTINUOUS INTEGRATION WITH JENKINS (UBUNTU + MAVEN/GRADLE)
+CONTINUOUS INTEGRATION WITH JENKINS (UBUNTU + MAVEN/GRADLE)
 
 ───────────────────────────────────────────────
 🔧 STEP 1: INSTALL JENKINS, MAVEN & GRADLE
