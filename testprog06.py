@@ -1,53 +1,57 @@
-'''
-1. Jenkins Job Setup Overview
-Build Maven project from Git repo.
+🧪 EXPERIMENT 8: JENKINS CI PIPELINE FOR MAVEN + ANSIBLE DEPLOYMENT
 
-Archive generated JAR artifact.
+───────────────────────────────
+1. PREPARE MAVEN PROJECT (if not already)
+cd path/to/HelloMaven
+git init
+git add .
+git commit -m "Initial commit of HelloMaven project"
+# Push to your remote Git repo
 
-Post-build step: Run Ansible playbook to deploy artifact.
+───────────────────────────────
+2. SETUP JENKINS JOB
+- Open Jenkins → New Item → Name: HelloMaven-CI → Freestyle project → OK
+- Source Code Management: Git
+  Repository URL: https://github.com/yourusername/HelloMaven.git
+  (Add credentials if private)
+- Build Step: Add "Invoke top-level Maven targets"
+  Goals: clean package
+- Post-build Action: Archive the artifacts
+  Files to archive: target/*.jar
+- Post-build Action: Execute shell
+  Command:
+    ansible-playbook -i /path/to/hosts.ini /path/to/deploy.yml
+- Save the job
 
-Verify deployment success.
-'''
+───────────────────────────────
+3. CREATE ANSIBLE INVENTORY (if not already)
+nano hosts.ini
 
-#**************hosts.ini**************
-
+Content:
 [local]
 localhost ansible_connection=local
 
+───────────────────────────────
+4. CREATE DEPLOYMENT PLAYBOOK
+nano deploy.yml
 
-#**************deploy.yml**************
-
+Content:
+---
 - name: Deploy Maven Artifact
   hosts: local
   become: yes
   tasks:
-    - name: Copy the artifact to the deployment directory
+    - name: Copy the artifact to deployment directory
       copy:
         src: "/var/lib/jenkins/workspace/HelloMavenCI/target/HelloMaven-1.0-SNAPSHOT.jar"
         dest: "/opt/deployment/HelloMaven.jar"
 
+Save and exit
 
-#5. Summary: Jenkins Maven Job Steps
-New Item → Freestyle Project → Name it (e.g., HelloMaven-CI)
-Source Code Manageme
-Git
-Repository URL: https://github.com/yourusername/HelloMaven.git
-Credentials if private repo
-Build:
-Add build step → Invoke top-level Maven targets
-Goals: clean package
-Post-build Actions:
-Archive the artifacts → target/*.jar
-Execute shell → ansible-playbook -i /path/to/hosts.ini /path/to/deploy.yml
-Save and run job.
-
-
-
-
-#6. Verify Deployment
-
-ls -l /opt/deployment/
-
-
-ansible-playbook -i /path/to/hosts.ini /path/to/deploy.yml
-
+───────────────────────────────
+5. RUN AND VERIFY
+- In Jenkins, click "Build Now" for HelloMaven-CI job
+- Check Console Output for success:
+  Maven build success, artifact archived, ansible-playbook ran
+- Verify artifact on deployment machine:
+  ls -l /opt/deployment/
