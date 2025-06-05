@@ -67,4 +67,3 @@ Step 4: Build and run the Gradle application
 
 ---
 
-End of Experiment 4.
