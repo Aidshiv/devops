@@ -1,4 +1,4 @@
-🧪 EXPERIMENT 8: JENKINS CI PIPELINE FOR MAVEN + ANSIBLE DEPLOYMENT
+JENKINS CI PIPELINE FOR MAVEN + ANSIBLE DEPLOYMENT
 
 ───────────────────────────────
 1. PREPARE MAVEN PROJECT (if not already)
