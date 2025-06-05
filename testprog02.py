@@ -134,3 +134,33 @@ Run Custom Task: gradle hello → Prints: Hello, Gradle!
 Run Greet Task: gradle greet → Builds first, then prints: Build is complete! Time to celebrate!
 
 ------------------------------
+✅Run:
+# STEP 1: Navigate to your project folder
+cd HelloGradle
+
+# STEP 2: Make the Gradle wrapper script executable
+chmod +x gradlew
+
+# STEP 3: Build the project (compiles code, runs tests, packages JAR)
+./gradlew build
+
+# STEP 4: Run the Java application
+./gradlew run
+
+# STEP 5: Run the custom task that prints "Hello, Gradle!"
+./gradlew hello
+
+# STEP 6: Run the "greet" task (depends on build, then prints message)
+./gradlew greet
+
+# EXTRA (optional):
+# Clean build artifacts
+./gradlew clean
+
+# List all available Gradle tasks
+./gradlew tasks
+
+# Run unit tests
+./gradlew test
+
+------------------------------
